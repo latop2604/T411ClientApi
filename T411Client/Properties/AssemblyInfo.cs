@@ -1,5 +1,6 @@
-﻿using System.Resources;
-using System.Reflection;
+﻿using System.Reflection;
+using System.Runtime.CompilerServices;
+using System.Runtime.InteropServices;
 
 // Les informations générales relatives à un assembly dépendent de 
 // l'ensemble d'attributs suivant. Changez les valeurs de ces attributs pour modifier les informations
@@ -9,10 +10,17 @@ using System.Reflection;
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
 [assembly: AssemblyProduct("T411Client")]
-[assembly: AssemblyCopyright("Copyright ©  2013")]
+[assembly: AssemblyCopyright("Copyright ©  2015")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
-[assembly: NeutralResourcesLanguage("fr")]
+
+// L'affectation de la valeur false à ComVisible rend les types invisibles dans cet assembly 
+// aux composants COM.  Si vous devez accéder à un type dans cet assembly à partir de 
+// COM, affectez la valeur true à l'attribut ComVisible sur ce type.
+[assembly: ComVisible(false)]
+
+// Le GUID suivant est pour l'ID de la typelib si ce projet est exposé à COM
+[assembly: Guid("ede2a36b-ef19-4930-8713-8f932efe87cc")]
 
 // Les informations de version pour un assembly se composent des quatre valeurs suivantes :
 //
@@ -21,10 +29,8 @@ using System.Reflection;
 //      Numéro de build
 //      Révision
 //
-// Vous pouvez spécifier toutes les valeurs ou utiliser par défaut les numéros de build et de version 
+// Vous pouvez spécifier toutes les valeurs ou indiquer les numéros de build et de révision par défaut 
 // en utilisant '*', comme indiqué ci-dessous :
 // [assembly: AssemblyVersion("1.0.*")]
-[assembly: AssemblyVersion("0.1.0.0")]
-[assembly: AssemblyFileVersion("0.1.0.0")]
-
-[assembly: System.CLSCompliant(true)]
+[assembly: AssemblyVersion("1.0.0.0")]
+[assembly: AssemblyFileVersion("1.0.0.0")]

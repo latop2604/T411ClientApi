@@ -1,6 +1,5 @@
 ﻿using System;
-
-namespace T411.Api
+namespace T411
 {
     public class ErrorCodeException : Exception
     {
@@ -19,8 +18,8 @@ namespace T411.Api
 
         public static ErrorCodeException CreateFromErrorCode(ErrorResult errorResult)
         {
-            if(errorResult == null)
-                throw new ArgumentNullException("errorResult");
+            if (errorResult == null)
+                throw new ArgumentNullException(nameof(errorResult));
 
             return new ErrorCodeException(errorResult.Error, errorResult.Code);
         }

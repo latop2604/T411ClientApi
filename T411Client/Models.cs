@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
+using Newtonsoft.Json;
 
-namespace T411.Api
+namespace T411
 {
+    using System.Linq;
+
     [System.Diagnostics.DebuggerDisplay("{Uid} / {Token}")]
     public class AuthResult
     {
@@ -31,7 +33,9 @@ namespace T411.Api
         public int IsVerified { get; set; }
         public DateTime Added { get; set; }
         public long Size { get; set; }
-        public int Times_completed { get; set; }
+        [JsonProperty("times_completed")]
+        public int TimesCompleted { get; set; }
+
         public int Owner { get; set; }
         public string CategoryName { get; set; }
         public string CategoryImage { get; set; }
@@ -50,8 +54,9 @@ namespace T411.Api
         public string RewriteName { get; set; }
         public int Owner { get; set; }
         public string Username { get; set; }
-        public Privacy Privacy { get; set; }
+        public Privacy? Privacy { get; set; }
         public string Description { get; set; }
+        public bool IsVerified { get; set; }
         public Dictionary<string, string> Terms { get; set; }
 
         public TorrentDetails()
@@ -75,51 +80,38 @@ namespace T411.Api
         }
     }
 
+    public enum SortOrder
+    {
+        Asc,
+        Desc,
+    }
+
+    public enum SortColumn
+    {
+        Category,
+        Name,
+        Comments,
+        Added,
+        Size,
+        TimesCompleted,
+        Seeders,
+        Leechers,
+    }
+
     public class QueryOptions
     {
+
         public int Offset { get; set; }
         public int Limit { get; set; }
         public List<int> CategoryIds { get; set; }
         public List<Term> Terms { get; set; }
+        public SortColumn? SortColumn { get; set; }
+        public SortOrder? SortOrder { get; set; }
 
         public QueryOptions()
         {
             Terms = new List<Term>();
             CategoryIds = new List<int>();
-        }
-
-        public string QueryString
-        {
-            get
-            {
-                List<string> parameters = new List<string>();
-                if (Offset > 0)
-                {
-                    parameters.Add("offset=" + Offset);
-                }
-                if (Limit > 0)
-                {
-                    parameters.Add("limit=" + Limit);
-                }
-                if (CategoryIds != null && CategoryIds.Count > 0)
-                {
-                    foreach (int categoryId in CategoryIds)
-                    {
-                        parameters.Add("cid=" + categoryId);
-                    }
-                }
-                if (Terms != null)
-                {
-                    foreach (var term in Terms)
-                    {
-                        string parameter = string.Format(System.Globalization.CultureInfo.InvariantCulture,
-                                                         "[{0}][]={1}", term.TermTypeId, term.Id);
-                        parameters.Add(parameter);
-                    }
-                }
-
-                return string.Join("&", parameters);
-            }
         }
     }
 
@@ -149,7 +141,7 @@ namespace T411.Api
         public int Pid { get; set; }
         public string Name { get; set; }
 
-        public Dictionary<int, Category> Cats { get; set; }
+        public Dictionary<int,Category> Cats { get; set; }
 
         public Category()
         {
@@ -169,14 +161,7 @@ namespace T411.Api
         {
             get
             {
-                if (Terms == null)
-                    return null;
-                List<Term> result = new List<Term>();
-                foreach (var term in Terms)
-                {
-                    result.Add(new Term { TermTypeId = Id, Id = term.Key, Name = term.Value });
-                }
-                return result;
+                return Terms?.Select(term => new Term { TermTypeId = Id, Id = term.Key, Name = term.Value }).ToList();
             }
         }
 

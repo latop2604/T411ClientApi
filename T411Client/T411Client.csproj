@@ -7,7 +7,7 @@
     <ProjectGuid>{60A65FC1-D595-4CD8-8E8B-6D36E7974DA7}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>T411Client</RootNamespace>
+    <RootNamespace>T411</RootNamespace>
     <AssemblyName>T411Client</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
